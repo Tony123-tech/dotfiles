@@ -1,0 +1,235 @@
+# ============================================================
+# THEME CONTROL PANEL
+# Options: "cyberpunk" | "matrix" | "arasaka"
+# ============================================================
+palette = "cyberpunk"
+
+# Increase scan and command timeouts so large directories never trigger warnings
+scan_timeout = 100
+command_timeout = 1000
+
+format = """
+[╭─](bold neon_cyan)\
+[](neon_yellow)\
+$username\
+$hostname\
+[](fg:neon_yellow bg:neon_pink)\
+$directory\
+[](fg:neon_pink bg:neon_purple)\
+$git_branch\
+$git_status\
+$git_metrics\
+[](fg:neon_purple bg:neon_cyan)\
+$package\
+${custom.poly_cache}\
+$python\
+$rust\
+$zig\
+$nodejs\
+$golang\
+$php\
+[](fg:neon_cyan)\
+$cmd_duration\
+$jobs\
+$status
+[╰─](bold neon_cyan)$character"""
+
+right_format = """
+[](dark_panel)\
+${custom.localip}\
+${custom.cpu_idle}\
+${custom.cpu_spike}\
+$memory_usage\
+$battery\
+[](fg:neon_cyan bg:dark_panel)\
+$time\
+[](fg:neon_cyan)"""
+
+[username]
+show_always = true
+style_user = "fg:void bg:neon_yellow bold"
+format = "[ TONYMIC]($style)"
+
+[hostname]
+ssh_only = false
+style = "fg:void bg:neon_yellow bold"
+format = "[@TonyMic-MacBook-Air ]($style)"
+
+[directory]
+style = "fg:void bg:neon_pink bold"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "Docs"
+"Downloads" = "Down"
+"Music" = "Music"
+"Pictures" = "Pics"
+
+[git_branch]
+symbol = " "
+style = "fg:text_light bg:neon_purple bold"
+format = "[ $symbol$branch ]($style)"
+
+[git_status]
+style = "fg:neon_yellow bg:neon_purple bold"
+format = "[($all_status$ahead_behind )]($style)"
+
+[git_metrics]
+disabled = false
+only_nonzero_diffs = true
+added_style = "fg:neon_green bg:neon_purple bold"
+deleted_style = "fg:neon_pink bg:neon_purple bold"
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+
+[package]
+symbol = "📦 "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol$version ]($style)"
+
+[custom.poly_cache]
+# Displays active native binary cache count in ~/.cache/polyglot-native
+command = "ls -1 ~/.cache/polyglot-native 2>/dev/null | wc -l | tr -d ' '"
+when = "test -d ~/.cache/polyglot-native && [ -n \"$(ls -A ~/.cache/polyglot-native 2>/dev/null)\" ]"
+style = "fg:void bg:neon_cyan bold"
+format = "[ ⚡ CACHE:$output ]($style)"
+
+[python]
+symbol = "🐍 "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol$version( \\($virtualenv\\)) ]($style)"
+
+[rust]
+symbol = " "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol($version) ]($style)"
+
+[zig]
+symbol = "⚡ "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol($version) ]($style)"
+
+[nodejs]
+symbol = " "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol($version) ]($style)"
+
+[golang]
+symbol = " "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol($version) ]($style)"
+
+[php]
+symbol = " "
+style = "fg:void bg:neon_cyan bold"
+format = "[ $symbol($version) ]($style)"
+
+
+[cmd_duration]
+min_time = 500
+style = "fg:neon_yellow bold"
+format = " [⏱ $duration]($style)"
+
+[jobs]
+symbol = "⚙ "
+style = "fg:neon_green bold"
+format = " [$symbol$number]($style)"
+
+[status]
+disabled = false
+style = "fg:neon_pink bold"
+format = " [✖ $status]($style)"
+
+[custom.localip]
+command = "ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || ip -4 addr show wlan0 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1 | head -n1"
+when = true
+style = "fg:neon_cyan bg:dark_panel bold"
+format = "[ $output ]($style)"
+
+[custom.cpu_idle]
+# Subtle load average display when system is idle (< 3.0)
+command = "(sysctl -n vm.loadavg 2>/dev/null | awk '{print $2}' || awk '{print $1}' /proc/loadavg 2>/dev/null) | awk '$1 < 3.0 {printf \"%.2f\", $1}'"
+when = true
+style = "fg:muted bg:dark_panel"
+format = "[ CPU $output ]($style)"
+
+[custom.cpu_spike]
+# Highlighted neon pink load indicator during heavy compilation (>= 3.0)
+command = "(sysctl -n vm.loadavg 2>/dev/null | awk '{print $2}' || awk '{print $1}' /proc/loadavg 2>/dev/null) | awk '$1 >= 3.0 {printf \"%.2f\", $1}'"
+when = true
+style = "fg:neon_pink bg:dark_panel bold"
+format = "[ 🔥 CPU $output ]($style)"
+
+[memory_usage]
+disabled = false
+threshold = 50
+symbol = "RAM "
+style = "fg:neon_pink bg:dark_panel bold"
+format = "[ $symbol${ram} ]($style)"
+
+[battery]
+full_symbol = "⚡"
+charging_symbol = "🔌"
+discharging_symbol = "🔋"
+format = "[ $symbol $percentage ](fg:neon_green bg:dark_panel bold)"
+
+[[battery.display]]
+threshold = 20
+style = "fg:neon_pink bg:dark_panel bold"
+
+[[battery.display]]
+threshold = 100
+style = "fg:neon_green bg:dark_panel bold"
+
+[time]
+disabled = false
+time_format = "%R"
+style = "fg:void bg:neon_cyan bold"
+format = "[  $time ]($style)"
+
+[character]
+success_symbol = "[⚡](bold neon_cyan)"
+error_symbol = "[💀](bold neon_pink)"
+vimcmd_symbol = "[❮](bold neon_green)"
+
+# ============================================================
+# COLOR PALETTES
+# ============================================================
+
+# 1. Cyberpunk Netrunner (Default: Cyan / Pink / Yellow)
+[palettes.cyberpunk]
+void = "#090a0f"
+dark_panel = "#161826"
+muted = "#6272a4"
+neon_yellow = "#fcee09"
+neon_pink = "#ff2a6d"
+neon_purple = "#711c91"
+neon_cyan = "#05d9e8"
+neon_green = "#00ff9f"
+text_light = "#d1f7ff"
+
+# 2. Matrix Hacker (Green / Emerald / Lime)
+[palettes.matrix]
+void = "#050a06"
+dark_panel = "#0d1a10"
+muted = "#4d7c5b"
+neon_yellow = "#a3ff00"
+neon_pink = "#00ff9f"
+neon_purple = "#0f3d22"
+neon_cyan = "#00e5ff"
+neon_green = "#00ff41"
+text_light = "#d8ffe2"
+
+# 3. Arasaka Corpo (Crimson Red / Gold / Obsidian)
+[palettes.arasaka]
+void = "#0a0506"
+dark_panel = "#1c0d10"
+muted = "#7a5258"
+neon_yellow = "#ffd700"
+neon_pink = "#ff1e42"
+neon_purple = "#4a0e17"
+neon_cyan = "#ff5e3a"
+neon_green = "#00ff9f"
+text_light = "#ffe6ea"
+

@@ -1,0 +1,468 @@
+/* 3. CUSTOM CYBERPUNK MOUSE POINTER FOR TERMINAL */
+.monaco-workbench .panel .terminal-outer-container,
+.monaco-workbench .xterm,
+.monaco-workbench .xterm-viewport,
+.monaco-workbench .xterm-screen,
+.monaco-workbench .xterm-rows {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='28' height='28' viewBox='0 0 28 28'><polygon points='3,2 3,22 8,17 13,25 16,23 11,15 18,15' fill='%2300ffff' stroke='%230a0410' stroke-width='1.5'/><circle cx='21' cy='7' r='2.5' fill='%23ff00ff'/></svg>")
+      3 2,
+    auto !important;
+}
+
+.monaco-workbench .xterm-hover,
+.monaco-workbench .xterm a {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='28' height='28' viewBox='0 0 28 28'><circle cx='14' cy='14' r='9' fill='none' stroke='%23ff00ff' stroke-width='2'/><circle cx='14' cy='14' r='2.5' fill='%2300ffff'/><line x1='14' y1='1' x2='14' y2='7' stroke='%23ffff33' stroke-width='2'/><line x1='14' y1='21' x2='14' y2='27' stroke='%23ffff33' stroke-width='2'/><line x1='1' y1='14' x2='7' y2='14' stroke='%23ffff33' stroke-width='2'/><line x1='21' y1='14' x2='27' y2='14' stroke='%23ffff33' stroke-width='2'/></svg>")
+      14 14,
+    pointer !important;
+}
+
+/* 4. WORKSPACE, HOLOGRAPHIC GRID & CRT SCANLINE OVERLAY */
+.monaco-workbench .part.editor > .content,
+.monaco-workbench .editor-group-container,
+.monaco-workbench .welcomePageContainer {
+  background-color: #0a0410 !important;
+}
+
+.monaco-workbench .part.editor > .content {
+  background-image:
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+}
+
+.monaco-editor .view-overlays .current-line {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.08),
+    rgba(255, 0, 255, 0.04),
+    transparent
+  ) !important;
+  border-left: 2px solid #00ffff !important;
+  box-shadow: inset 4px 0 12px rgba(0, 255, 255, 0.15) !important;
+}
+
+.monaco-editor .margin-view-overlays .current-line-margin ~ .line-numbers,
+.monaco-editor .margin-view-overlays .active-line-number {
+  color: #00ffff !important;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.85) !important;
+  font-weight: bold !important;
+}
+
+.monaco-editor .selected-text {
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.35) !important;
+  border-radius: 2px !important;
+}
+
+/* CRT scanline texture across the entire workbench */
+.monaco-workbench::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.14) 0px,
+    rgba(0, 0, 0, 0.14) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* 5. CYBERPUNK BOTTOM PANEL & ERROR ALERT PULSE */
+@keyframes vsc-panel-error-pulse {
+  0%,
+  100% {
+    border-top-color: #ff0055;
+    box-shadow: 0 -2px 14px rgba(255, 0, 85, 0.35);
+  }
+  50% {
+    border-top-color: #ff00ff;
+    box-shadow: 0 -4px 20px rgba(255, 0, 255, 0.55);
+  }
+}
+
+.monaco-workbench .part.panel {
+  background-color: #0a0410 !important;
+  border-top: 1px solid #00ffff !important;
+  box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.15) !important;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.monaco-workbench .part.panel.cyber-error-alert {
+  animation: vsc-panel-error-pulse 1.5s infinite ease-in-out !important;
+}
+
+.monaco-workbench
+  .part.panel
+  .composite-bar
+  .action-item.checked
+  .action-label {
+  color: #ff00ff !important;
+  text-shadow: 0 0 6px #ff00ff !important;
+  border-bottom: 1px solid #ff00ff !important;
+}
+
+.monaco-workbench .part.panel .composite-bar .action-item .action-label {
+  color: #888899 !important;
+}
+
+.monaco-workbench .part.panel .composite-bar .action-item .action-label:hover {
+  color: #00ffff !important;
+}
+
+.monaco-workbench .xterm .xterm-viewport {
+  background-color: #0a0410 !important;
+}
+
+/* 6. ACTIVE TAB RAINBOW BORDER & DIRTY TAB PULSE */
+.monaco-workbench
+  .part.editor
+  > .content
+  .editor-group-container
+  > .title
+  .tabs-container
+  > .tab.active {
+  position: relative !important;
+}
+
+.monaco-workbench
+  .part.editor
+  > .content
+  .editor-group-container
+  > .title
+  .tabs-container
+  > .tab.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #8b00ff
+  );
+  background-size: 300% 300%;
+  animation: vsc-rainbow-hue 3s linear infinite;
+  z-index: 10;
+}
+
+@keyframes vsc-dirty-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 4px #ffff33,
+      0 0 8px #ff00ff;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 0 10px #ffff33,
+      0 0 16px #00ffff;
+    transform: scale(1.25);
+  }
+}
+
+.monaco-workbench
+  .part.editor
+  > .content
+  .editor-group-container
+  > .title
+  .tabs-container
+  > .tab.dirty
+  .close-editor-action::before,
+.monaco-workbench
+  .part.editor
+  > .content
+  .editor-group-container
+  > .title
+  .tabs-container
+  > .tab.dirty
+  .codicon-close::before {
+  color: #ffff33 !important;
+  text-shadow: 0 0 8px #ffff33 !important;
+  animation: vsc-dirty-pulse 1.5s infinite ease-in-out !important;
+}
+
+/* 7. SIDEBAR GLOW, GLITCH POPUPS & NEON SCROLLBARS */
+.monaco-workbench .part.sidebar .monaco-list-row.selected {
+  border-left: 2px solid #00ffff !important;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.14),
+    transparent
+  ) !important;
+}
+
+.monaco-workbench .part.sidebar .monaco-list-row.selected .label-name,
+.monaco-workbench .part.sidebar .monaco-list-row:hover .label-name,
+.monaco-workbench .part.activitybar .action-item:hover .action-label {
+  color: #00ffff !important;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.85) !important;
+}
+
+@keyframes vsc-cyber-glitch-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+    clip-path: inset(40% 0 40% 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.01);
+    clip-path: inset(10% 0 5% 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.quick-input-widget {
+  animation: vsc-cyber-glitch-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.quick-input-widget,
+.monaco-editor .suggest-widget,
+.monaco-editor .monaco-hover,
+.monaco-workbench .notifications-toasts .notification-toast {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 0, 255, 0.45) !important;
+  box-shadow:
+    0 0 18px rgba(255, 0, 255, 0.22),
+    0 8px 32px rgba(0, 0, 0, 0.75) !important;
+  border-radius: 8px !important;
+}
+
+/* 8. BRACKET MATCH, WORD OCCURRENCE & BREATHING BORDERS */
+.monaco-editor .bracket-match {
+  background-color: rgba(0, 255, 255, 0.18) !important;
+  border: 1px solid #00ffff !important;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.7) !important;
+  border-radius: 2px !important;
+}
+
+.monaco-editor .wordHighlight,
+.monaco-editor .wordHighlightStrong {
+  background-color: rgba(255, 0, 255, 0.12) !important;
+  border: 1px dashed rgba(255, 0, 255, 0.65) !important;
+  box-shadow: 0 0 6px rgba(255, 0, 255, 0.3) !important;
+  border-radius: 2px !important;
+}
+
+.monaco-workbench .xterm .xterm-rows {
+  text-shadow: 0 0 2px rgba(209, 247, 255, 0.22);
+}
+
+.monaco-workbench .part.panel .terminal-tabs-entry.selected {
+  color: #00ffff !important;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.8) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.15),
+    transparent
+  ) !important;
+  border-left: 2px solid #ff00ff !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 255, 0.45),
+    rgba(255, 0, 255, 0.45)
+  ) !important;
+  border-radius: 4px !important;
+}
+
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 255, 0.85),
+    rgba(255, 0, 255, 0.85)
+  ) !important;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.6) !important;
+}
+
+/* ============================================================
+   FORCE RESTORE RAINBOW CARET (EDITOR + TERMINAL)
+   ============================================================ */
+@keyframes vsc-rainbow-hue {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.monaco-editor .cursors-layer .cursor,
+.monaco-workbench .xterm .xterm-cursor {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-radius: 2px !important;
+  position: relative !important;
+}
+
+.monaco-editor .cursors-layer .cursor::before,
+.monaco-workbench .xterm .xterm-cursor::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    135deg,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #8b00ff
+  ) !important;
+  background-size: 300% 300% !important;
+  border-radius: 2px !important;
+  mix-blend-mode: screen !important;
+  animation: vsc-rainbow-hue 3s linear infinite !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+.monaco-editor .cursors-layer .cursor::after,
+.monaco-workbench .xterm .xterm-cursor::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 2px !important;
+  box-shadow:
+    0 0 6px var(--cyber-pri, #00ffff),
+    0 0 14px var(--cyber-sec, #ff00ff) !important;
+  pointer-events: none !important;
+  z-index: 3 !important;
+}
+
+/* ============================================================
+   10. GOD-MODE: SCREEN OVERDRIVE PLASMA & RGB SPLIT GLITCH
+   ============================================================ */
+
+/* Overdrive screen edge neon plasma vignette (toggled at >= 100 WPM) */
+body.cyber-overdrive-edge::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow:
+    inset 0 0 28px var(--cyber-sec, #ff00ff),
+    inset 0 0 65px rgba(0, 255, 255, 0.25);
+  animation: vsc-block-glow 0.8s infinite alternate;
+}
+
+/* Blackwall RGB split glitch on Terminal Enter */
+@keyframes vsc-rgb-glitch {
+  0% {
+    text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+    transform: translateX(0);
+  }
+  33% {
+    text-shadow: 3px 0 #ff00ff, -3px 0 #00ffff;
+    transform: translateX(-2px);
+  }
+  66% {
+    text-shadow: -2px 0 #ffff33, 2px 0 #ff0055;
+    transform: translateX(2px);
+  }
+  100% {
+    text-shadow: none;
+    transform: translateX(0);
+  }
+}
+
+.xterm-screen.cyber-blackwall-glitch {
+  animation: vsc-rgb-glitch 0.14s linear !important;
+}
+
+/* ============================================================
+   11. KIROSHI OPTICS CORNER RETICLES & EXPLORER LASER SWEEP
+   ============================================================ */
+
+/* Holographic corner brackets framing the entire editor viewport */
+.monaco-workbench .part.editor::before,
+.monaco-workbench .part.editor::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 9990;
+  opacity: 0.75;
+}
+
+.monaco-workbench .part.editor::before {
+  top: 40px;
+  left: 10px;
+  border-top: 2px solid var(--cyber-pri, #00ffff);
+  border-left: 2px solid var(--cyber-pri, #00ffff);
+  box-shadow: -2px -2px 8px rgba(0, 255, 255, 0.35);
+}
+
+.monaco-workbench .part.editor::after {
+  bottom: 10px;
+  right: 14px;
+  border-bottom: 2px solid var(--cyber-sec, #ff00ff);
+  border-right: 2px solid var(--cyber-sec, #ff00ff);
+  box-shadow: 2px 2px 8px rgba(255, 0, 255, 0.35);
+}
+
+/* Laser sweep gradient on hovered Explorer rows */
+.monaco-workbench .part.sidebar .monaco-list-row:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.16) 0%,
+    rgba(255, 0, 255, 0.08) 50%,
+    transparent 100%
+  ) !important;
+  border-left: 2px solid var(--cyber-sec, #ff00ff) !important;
+}
+
+/* ============================================================
+   12. FIREWALL STANDBY OVERLAY & LASER RAYCAST EFFECTS
+   ============================================================ */
+
+/* Dim & tint workbench slightly when window loses focus */
+.monaco-workbench.cyber-window-blur .part.editor,
+.monaco-workbench.cyber-window-blur .part.sidebar {
+  filter: saturate(0.6) brightness(0.78);
+  transition: filter 0.35s ease;
+}
+
+.monaco-workbench .part.editor,
+.monaco-workbench .part.sidebar {
+  transition: filter 0.25s ease;
+}
+
+/* Glitch text flicker for unlocked/locked badges */
+@keyframes vsc-holo-flicker {
+  0%, 100% { opacity: 0.95; }
+  45% { opacity: 0.95; }
+  50% { opacity: 0.4; }
+  55% { opacity: 0.95; }
+  80% { opacity: 0.7; }
+  85% { opacity: 0.95; }
+}
+
+.cyber-holo-flicker {
+  animation: vsc-holo-flicker 2.4s infinite;
+}
