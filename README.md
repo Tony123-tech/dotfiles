@@ -21,6 +21,6 @@ A complete, high-performance **Cyberpunk Netrunner** terminal and editor aesthet
 
 ```bash
 git clone https://github.com/Tony123-tech/dotfiles
-cd cyberpunk-dotfiles
+cd dotfiles
 ./install.sh
 ```
